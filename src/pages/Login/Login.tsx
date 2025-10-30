@@ -12,19 +12,34 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const loginHandler = () => {
-    LoginService({ username: email, password: password })
-      .then((response) => {
-        if (response.status === 200) {
-          toast.success("Accesso effettuato...");
-          dispatch(setUserToken(response.data));
-          setTimeout(() => {
-            navigate("/dashboard");
-          }, 2000);
-        }
-      })
-      .catch(() => {
-        toast.error("Email o password errati...");
-      })
+
+    let nErr = 0;
+
+    if (email == '') {
+      toast.warn("Inserisci l'indirizzo email...");
+      nErr++;
+    }
+
+    if (password == '') {
+      toast.warn("Inserisci la password...");
+      nErr++;
+    }
+
+    if (nErr == 0) {
+      LoginService({ username: email, password: password })
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success("Accesso effettuato...");
+            dispatch(setUserToken(response.data));
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 2000);
+          }
+        })
+        .catch(() => {
+          toast.error("Email o password errati...");
+        })
+    }
   }
 
   return (
