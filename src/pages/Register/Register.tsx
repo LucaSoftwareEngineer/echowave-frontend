@@ -21,12 +21,22 @@ const Register = () => {
   const registerHandler = () => {
     let nErr = 0;
 
-    if (!emailRegex.test(email) && email != '') {
+    if (!email) {
+      toast.warn("L'indirizzo email non può essere vuoto...");
+      nErr++;
+    }
+
+    if (!emailRegex.test(email)) {
       toast.warn("Inserisci un indirizzo email valido...");
       nErr++;
     }
 
-    if (!passwordRegex.test(password) && password != '') {
+    if (!password) {
+      toast.warn("La password non può essere vuota...");
+      nErr++;
+    }
+
+    if (!passwordRegex.test(password)) {
       toast.warn("Inserisci una password valida...");
       nErr++;
     }
