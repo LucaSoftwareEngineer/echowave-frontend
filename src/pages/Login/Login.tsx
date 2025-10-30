@@ -11,6 +11,22 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const loginHandler = () => {
+    LoginService({ username: email, password: password })
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Accesso effettuato...");
+          dispatch(setUserToken(response.data));
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 2000);
+        }
+      })
+      .catch(() => {
+        toast.error("Email o password errati...");
+      })
+  }
+
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
@@ -77,19 +93,7 @@ const Login = () => {
                 </div>
                 <button
                   onClick={() => {
-                    LoginService({ username: email, password: password })
-                      .then((response) => {
-                        if (response.status === 200) {
-                          toast.success("Accesso effettuato...");
-                          dispatch(setUserToken(response.data));
-                          setTimeout(() => {
-                            navigate("/dashboard");
-                          }, 2000);
-                        }
-                      })
-                      .catch(() => {
-                        toast.error("Email o password errati...");
-                      })
+                    loginHandler();
                   }}
                   type="submit"
                   className="me-2 mb-2 w-full cursor-pointer rounded-lg bg-[#06bd8f] px-5 py-2.5 text-sm font-medium text-white hover:bg-black focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
