@@ -1,6 +1,9 @@
 import Navbar from "../../components/navbar/Navbar";
+import useCheckToken from "../../hooks/useCheckToken";
 
 const Dashboard = () => {
+  useCheckToken();
+
   return (
     <>
       <Navbar />
