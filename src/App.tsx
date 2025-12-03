@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard/Dashboard.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/Store.ts";
 import Register from "./pages/Register/Register.tsx";
+import "./index.css";
 
 const router = createBrowserRouter([
   {path: "/", element:<Login />},
